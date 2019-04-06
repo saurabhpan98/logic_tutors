@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title><%= user.name %>'s details</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Basic">
+    <link rel="stylesheet" href="assets/css/Contact-Form-Clean.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="assets/css/Login-Form-Clean.css">
+    <link rel="stylesheet" href="assets/css/Navigation-Clean.css">
+    <link rel="stylesheet" href="assets/css/Registration-Form-with-Photo.css">
+    <link rel="stylesheet" href="assets/css/Team-Boxed.css">
+    <link rel="stylesheet" href="assets/css/Testimonials.css">
+
+    <style media="screen">
+      nav li{
+        padding: 10px 20px;
+      }
+
+      nav{
+        border-bottom: solid 0.2px lightgrey;
+      }
+
+    </style>
+</head>
+
+<body>
+    <div>
+        <nav class="navbar navbar-light navbar-expand-md text-center navigation-clean" style="font-family: Basic, sans-serif;">
+            <div class="container">
+              <a class="navbar-brand" href="/profile" style="font-size: 30px;"><%= user.name %></a>
+              <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="navbar-toggler-icon"></span>
+              </button>
+                <div
+                    class="collapse navbar-collapse" id="navcol-1">
+                    <ul class="nav navbar-nav ml-auto">
+                      <li class="nav-item" role="presentation">
+                        <a class="nav-link" href="/">Home</a>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <a class="nav-link active" href="/profile-details">My Details</a>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <a class="nav-link" href="#">Ask a doubt</a>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <a class="nav-link" href="/profile">Classroom</a>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <a class="nav-link" href="/logout">Logout</a>
+                      </li>
+                    </ul>
+            </div>
+    </div>
+    </nav>
+    </div>
+    <div style="margin-top: 73px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 col-lg-4 text-center"><img class="img-fluid shadow-lg" src="assets/img/1.jpg">
+                    <h3 class="text-center" style="margin-top: 29px;font-family: Basic, sans-serif;"><%= user.name %></h3>
+                    <p class="lead text-center" style="font-family: Basic, sans-serif;font-size: 18px;margin-top: 9px;">Class of <%= user.class %></p>
+                    <p class="text-left" style="margin-bottom: 0px;font-family: Basic, sans-serif;"><strong>Subject Taken:</strong></p>
+                    <p class="text-left" style="margin-top: 10px;margin-bottom: 0px;font-family: Basic, sans-serif;"><strong>Email ID:</strong> <%= user.email %></p>
+                    <p class="text-left" style="margin-top: 10px;margin-bottom: 0px;font-family: Basic, sans-serif;"><strong>Faculties:</strong></p>
+                    <p class="text-left" style="margin-top: 10px;margin-bottom: 0px;font-family: Basic, sans-serif;"><strong>Phone Number:</strong> <%= user.phone %></p>
+                    <p class="text-left" style="margin-top: 10px;margin-bottom: 0px;font-family: Basic, sans-serif;"><strong>Age:</strong> <%= user.age %> years</p>
+                    <p class="text-left" style="margin-top: 10px;margin-bottom: 0px;font-family: Basic, sans-serif;"><strong>Gender:</strong> <%= user.gender %> </p>
+                    <p class="text-left" style="margin-top: 10px;margin-bottom: 0px;font-family: Basic, sans-serif;"><strong>Address:</strong> <%= user.address %></p>
+                </div>
+                <div class="col-md-7 col-lg-8"></div>
+            </div>
+        </div>
+    </div>
+    <footer style="margin-top: 86px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 mx-auto">
+                    <ul class="list-inline text-center">
+                        <li class="list-inline-item"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-twitter fa-stack-1x fa-inverse" data-bs-hover-animate="tada"></i></span></li>
+                        <li class="list-inline-item"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-facebook fa-stack-1x fa-inverse" data-bs-hover-animate="tada"></i></span></li>
+                        <li class="list-inline-item"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-instagram fa-stack-1x fa-inverse" data-bs-hover-animate="tada"></i></span></li>
+                    </ul>
+                    <p class="lead text-muted copyright" style="font-size: 19px;font-family: Basic, sans-serif;">Copyright&nbsp;©&nbsp;Tutors 2019, Created by <a href="https://saurabh-portfolio.herokuapp.com" style="text-decoration: none;">Saurabh Panchal</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-animation.js"></script>
+    <script src="assets/js/clean-blog.js"></script>
+</body>
+
+</html>

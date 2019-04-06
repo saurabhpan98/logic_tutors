@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Mark Attendance - <%= user.name %></title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="assets/css/Contact-Form-Clean.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="assets/css/Login-Form-Clean.css">
+    <link rel="stylesheet" href="assets/css/Registration-Form-with-Photo.css">
+    <link rel="stylesheet" href="assets/css/Team-Boxed.css">
+    <link rel="stylesheet" href="assets/css/Testimonials.css">
+    <link rel="stylesheet" href="assets/css/Navigation-Clean.css">
+
+    <!-- React cdn ---->
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style media="screen">
+      nav li{
+        padding: 10px 20px;
+      }
+
+      nav{
+        border-bottom: solid 0.2px lightgrey;
+      }
+
+      #root{
+        padding: 60px 20px;
+        width: 50%;
+        margin: 10px auto;
+      }
+
+      #students{
+        border-bottom: solid 0.4px lightgrey;
+      }
+
+      #students .col-1{
+        border-right: solid 0.4px lightgrey;
+      }
+
+      #students button{
+        margin-top: 18px;
+        border-radius: 10px;
+      }
+
+      #attendance-heading, #percentage-present{
+        text-align: left;
+      }
+
+      @media only screen and (max-width: 700px){
+        #root{
+          width: 100%;
+        }
+      }
+
+    </style>
+</head>
+
+<body class="text-center" style="color: rgb(0,0,0);">
+    <nav class="navbar navbar-light navbar-expand-xl text-center navigation-clean" style="font-family: Basic, sans-serif;">
+        <div class="container">
+          <a class="navbar-brand" href="/faculty-profile" style="font-size: 30px;"><%= user.name %></a>
+          <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="nav navbar-nav ml-auto">
+              <li class="nav-item" role="presentation">
+                <a class="nav-link" href="/">Home</a>
+              </li>
+              <li class="nav-item" role="presentation">
+                <a class="nav-link" href="#">Doubt session</a>
+              </li>
+              <li class="nav-item" role="presentation">
+                <a class="nav-link" href="/faculty-profile">Classroom</a>
+              </li>
+              <li class="nav-item" role="presentation">
+                <a class="nav-link" href="/logout">Logout</a>
+              </li>
+            </ul>
+          </div>
+      </div>
+    </nav>
+
+    <div class="root" id="root">
+
+    </div>
+    <div class="container">
+      <a href="/mark-attendance" style="text-decoration: none;">
+        <button type="button" class="btn btn-primary" style="margin-top: 20px;">Select another class</button>
+      </a>
+      <a href="/faculty-profile" style="text-decoration: none;">
+        <button type="button" class="btn btn-success" style="margin-top: 20px;">Submit Attendance</button>
+      </a>
+    </div>
+
+    <footer style="margin-top: 73px;">
+        <hr>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 mx-auto">
+                    <ul class="list-inline text-center">
+                        <li class="list-inline-item">
+                          <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-twitter fa-stack-1x fa-inverse" data-bs-hover-animate="tada"></i>
+                          </span>
+                        </li>
+                        <li class="list-inline-item">
+                          <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-facebook fa-stack-1x fa-inverse" data-bs-hover-animate="tada"></i>
+                          </span>
+                        </li>
+                        <li class="list-inline-item">
+                          <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-instagram fa-stack-1x fa-inverse" data-bs-hover-animate="tada"></i>
+                          </span>
+                        </li>
+                    </ul>
+                    <p class="lead text-muted copyright" style="font-size: 19px;">Copyright&nbsp;©&nbsp;Tutors 2019, Created by <a href="https://saurabh-portfolio.herokuapp.com" style="text-decoration: none;">Saurabh Panchal</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-animation.js"></script>
+    <script src="assets/js/clean-blog.js"></script>
+
+    <script type="text/babel">
+      class App extends React.Component{
+        state = {
+          data: [],
+          id: 0,
+          intervalIsSet: false,
+          message: null,
+          percentPresent: 0,
+          totalPresent: 0
+        };
+
+        componentDidMount() {
+          this.getDataFromDb();
+          if (!this.state.intervalIsSet) {
+            let interval = setInterval(this.getDataFromDb, 1000);
+            this.setState({ intervalIsSet: interval });
+          }
+        }
+
+        componentWillUnmount() {
+          if (this.state.intervalIsSet) {
+            clearInterval(this.state.intervalIsSet);
+            this.setState({ intervalIsSet: null });
+          }
+        }
+
+        getDataFromDb = () => {
+          fetch("http://localhost:3000/getClassStudent")
+            .then(data => data.json())
+            .then(res => this.setState({ data: res.data }));
+        };
+
+        handleColorChange = (e) =>{
+          if(e.target.innerHTML == 'A'){
+            e.target.className = "btn btn-success";
+            e.target.innerHTML = "P";
+            var len = this.state.data.length;
+            var total = this.state.totalPresent + 1;
+            var totalPercent = total/len;
+            this.setState({
+              percentPresent: totalPercent,
+              totalPresent: total
+            })
+          }
+          else{
+            e.target.className = "btn btn-danger";
+            e.target.innerHTML = "A";
+            var len = this.state.data.length;
+            var total = this.state.totalPresent - 1;
+            var totalPercent = total/len;
+            this.setState({
+              percentPresent: totalPercent,
+              totalPresent: total
+            })
+          }
+        }
+
+        render(){
+          var students = this.state.data;
+          var i = 0;
+          var studentsList = students.map(student => {
+            i++;
+            return(
+              <div className = "row" id = "students" key = {student._id}>
+                <div className = "col-1">
+                  <p className = "lead">{i}</p>
+                </div>
+                <div className = "col-7">
+                  <p className = "lead">{student.name}</p>
+                </div>
+                <div className = "col-2">
+                  <button className = "btn btn-danger" id="check-button" type = "submit" onClick = {this.handleColorChange}>A</button>
+                </div>
+              </div>
+            )
+          })
+          return(
+            <div className = "App">
+              <h1 id = "attendance-heading">Here is the list of Class</h1>
+              <p className = "lead" id = "percentage-present">Percentage Present : {this.state.percentPresent*100}%</p>
+              <br />
+              {studentsList}
+            </div>
+          )
+        }
+      }
+
+      ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+  </body>
+
+</html>

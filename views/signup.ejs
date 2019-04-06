@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Signup</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="assets/css/Contact-Form-Clean.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="assets/css/Login-Form-Clean.css">
+    <link rel="stylesheet" href="assets/css/Registration-Form-with-Photo.css">
+    <link rel="stylesheet" href="assets/css/Team-Boxed.css">
+
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style media="screen">
+      #email_message{
+        font-size: 14px;
+        color: rgb(13, 105, 214);
+      }
+
+      #signup-form{
+        font-family: 'Open Sans', sans-serif;
+        margin: 30px 0;
+      }
+
+      #signup-submit{
+        background-color: rgb(18,16,17);
+      }
+
+      #form-container{
+        width: 60%;
+        margin: 50px auto;
+      }
+
+      form{
+        width: 50%;
+        height: 100%;
+        padding: 40px 50px;
+        margin: 20px auto;
+        box-shadow: 0 0 10px lightgrey;
+      }
+
+      .form-check{
+          font-size: 14px;
+      }
+
+      .already{
+        text-align: center;
+        font-size: 14px;
+      }
+
+      #password_repeat{
+        margin-top: 30px;
+      }
+
+      @media only screen and (max-width: 700px){
+        #form-container{
+          width: 80%;
+        }
+        form{
+          width: 100%;
+          padding: 40px 30px;
+        }
+      }
+    </style>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top" id="mainNav" style="font-family: 'Open Sans', sans-serif;">
+        <div class="container"><a class="navbar-brand" href="index.html" style="font-size: 30px;">Tutors</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+            <div
+                class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="nav navbar-nav text-center ml-auto">
+                  <li class="nav-item" role="presentation" style="padding-top: 20px;"><a class="nav-link" href="/">Home</a></li>
+                  <li class="nav-item" role="presentation" style="padding-top: 20px;"><a class="nav-link" href="/about">About us</a></li>
+                  <li class="nav-item" role="presentation" style="padding-top: 20px;"><a class="nav-link" href="/contact-us">Contact us</a></li>
+                  <li class="nav-item" role="presentation" style="padding-top: 20px;"><a class="nav-link" href="/assignments">Assignments</a></li>
+                  <% if(!user){ %>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="/signin"><button class="btn btn-primary" type="button">Login</button></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="/signup"><button class="btn btn-primary" type="button">Signup</button></a></li>
+                  <% } %>
+                  <% if(user){ %>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="/profile"><button class="btn btn-primary" type="button"><%= user.name %></button></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="/logout"><button class="btn btn-primary" type="button">Logout</button></a></li>
+                  <% } %>
+                </ul>
+        </div>
+        </div>
+    </nav>
+    <div class="overlay"></div>
+    <header class="masthead" style="background-image: url(&quot;assets/img/about-bg.jpg&quot;);">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 mx-auto">
+                    <div class="site-heading">
+                        <h1>Signup</h1><span class="subheading" style="font-family: 'Open Sans', sans-serif;margin-top: 42px;">If you want to join us, then don't wait. Just signup on Tutors.com and start building your career with one of the best coaching in Delhi.</span></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div className="register-photo" style="background-color: rgba(241,247,252,0);" id="signup-form">
+    </div>
+
+    <hr>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 mx-auto">
+                    <ul class="list-inline text-center">
+                        <li class="list-inline-item"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-twitter fa-stack-1x fa-inverse" data-bs-hover-animate="tada"></i></span></li>
+                        <li class="list-inline-item"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-facebook fa-stack-1x fa-inverse" data-bs-hover-animate="tada"></i></span></li>
+                        <li class="list-inline-item"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-instagram fa-stack-1x fa-inverse" data-bs-hover-animate="tada"></i></span></li>
+                    </ul>
+                    <p class="lead text-muted copyright" style="font-size: 19px;">Copyright&nbsp;©&nbsp;Tutors 2019, Created by <a href="https://saurabh-portfolio.herokuapp.com" style="text-decoration: none;">Saurabh Panchal</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-animation.js"></script>
+    <script src="assets/js/clean-blog.js"></script>
+
+
+    <script type="text/babel">
+      class App extends React.Component{
+
+        state = {
+          data: [],
+          id: 0,
+          intervalIsSet: false,
+          message: null
+        };
+
+        componentDidMount() {
+          this.getDataFromDb();
+          if (!this.state.intervalIsSet) {
+            let interval = setInterval(this.getDataFromDb, 1000);
+            this.setState({ intervalIsSet: interval });
+          }
+        }
+
+        componentWillUnmount() {
+          if (this.state.intervalIsSet) {
+            clearInterval(this.state.intervalIsSet);
+            this.setState({ intervalIsSet: null });
+          }
+        }
+
+        getDataFromDb = () => {
+          fetch("http://localhost:3000/getData")
+            .then(data => data.json())
+            .then(res => this.setState({ data: res.data }));
+        };
+
+        handleChange = (e) =>{
+          if(e.target.value == ''){
+            this.setState({
+              message: ''
+            })
+          }
+          for(var i = 0; i<this.state.data.length; i++){
+            if(this.state.data[i].email == e.target.value){
+              e.target.style.border = "solid 2px rgb(13, 105, 214)";
+              this.setState({
+                message: 'email already present'
+              })
+            }
+          }
+        }
+
+        render(){
+          return(
+            <div className = "App">
+              <div className="form-container" id="form-container">
+                  <form method="POST" action="/signup">
+                      <h2 className="text-center"><strong>Create</strong> an account.</h2>
+                      <br />
+                      <div className="form-group">
+                        <input className="form-control" type="email" name="email" placeholder="Enter Email" onChange = {this.handleChange} required/>
+                        <p id="email_message">{this.state.message}</p>
+                      </div>
+                      <div className="form-group">
+                        <input className="form-control" type="password" name="password" placeholder="Enter Password" required/>
+                      </div>
+                      <div className="form-group" id="password_repeat" >
+                        <input className="form-control" type="password" name="password_repeat" placeholder="Repeat Password" required/>
+                      </div>
+                      <div className="form-group">
+                          <div className="form-check">
+                            <label className="form-check-label">
+                              <input className="form-check-input" type="checkbox" required/>I agree to the license terms.
+                            </label>
+                          </div>
+                      </div>
+                      <div className="form-group">
+                        <button className="btn btn-primary btn-block" type="submit" id="signup-submit">Sign Up</button>
+                      </div>
+                      <a href="/signin" className="already">You already have an account? <strong>Login here</strong>.</a>
+                  </form>
+                </div>
+            </div>
+          )
+        }
+      }
+
+      ReactDOM.render(<App />, document.getElementById('signup-form'));
+    </script>
+
+</body>
+
+</html>
