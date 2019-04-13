@@ -39,6 +39,22 @@
         border-radius: 6px;
       }
 
+      #attendanceButton{
+        border-radius: 4px;
+        background: #09BF2D;
+        border: solid 2px #09BF2D;
+        outline: none;
+        color: white;
+        padding: 5px 7px;
+        font-family: Calibri;
+      }
+
+      #attendanceButton:hover{
+        border: solid 2px #07B028;
+        background: #07B028;
+        transition: all 0.3s;
+      }
+
       @media only screen and (max-width: 700px){
         form{
           width: 100%;
@@ -78,7 +94,7 @@
     <div class="container" id="attendance_block" style="margin-top: 60px; padding: 30px;">
       <form method = "POST" action = "/mark-attendance" style="text-align: left;">
         <h1 style="text-align: left; font-family: Calibri; margin-bottom: 40px;">Want to mark attendance?</h1>
-        <label for="class">Select the class for attendance..</label>
+        <label for="class" style="font-family: Calibri;">Select the class for attendance..</label>
         <select class="form-control" style="margin-top: 16px; font-family: 'Open Sans', sans-serif;" name="class" required/>
           <option value="" selected="">Your Present Class</option>
           <option value="8">8</option>
@@ -89,11 +105,11 @@
         </select>
 
         <br>
-        <button type="submit" class="btn btn-success">Select Class</button>
+        <button type="submit" id="attendanceButton">Select Class</button>
       </form>
     </div>
 
-    <div class="container" id="attendance_block" style="margin-top: 60px; padding: 30px;">
+    <div class="container" id="attendance_block" style="margin: 60px auto; padding: 30px;">
       <form method = "POST" action = "" style="text-align: left;">
         <h1 style="text-align: left; font-family: Calibri;">Want to see attendance?</h1>
         <label for="class"></label>
@@ -113,39 +129,10 @@
         </div>
 
         <br>
-        <button type="submit" class="btn btn-success">Select Class</button>
+        <button type="submit" id="attendanceButton">Select Class</button>
       </form>
     </div>
 
-    <footer style="margin-top: 73px;">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-10 col-lg-8 mx-auto">
-                    <ul class="list-inline text-center">
-                        <li class="list-inline-item">
-                          <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-twitter fa-stack-1x fa-inverse" data-bs-hover-animate="tada"></i>
-                          </span>
-                        </li>
-                        <li class="list-inline-item">
-                          <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-facebook fa-stack-1x fa-inverse" data-bs-hover-animate="tada"></i>
-                          </span>
-                        </li>
-                        <li class="list-inline-item">
-                          <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-instagram fa-stack-1x fa-inverse" data-bs-hover-animate="tada"></i>
-                          </span>
-                        </li>
-                    </ul>
-                    <p class="lead text-muted copyright" style="font-size: 19px;">Copyright&nbsp;©&nbsp;Tutors 2019, Created by <a href="https://saurabh-portfolio.herokuapp.com" style="text-decoration: none;">Saurabh Panchal</a></p>
-                </div>
-            </div>
-        </div>
-    </footer>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/bs-animation.js"></script>

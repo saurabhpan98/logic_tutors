@@ -12,10 +12,6 @@
     <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
     <link rel="stylesheet" href="assets/css/Contact-Form-Clean.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <link rel="stylesheet" href="assets/css/Login-Form-Clean.css">
-    <link rel="stylesheet" href="assets/css/Registration-Form-with-Photo.css">
-    <link rel="stylesheet" href="assets/css/Team-Boxed.css">
-    <link rel="stylesheet" href="assets/css/Testimonials.css">
     <link rel="stylesheet" href="assets/css/Navigation-Clean.css">
 
     <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
@@ -65,9 +61,6 @@
                 <a class="nav-link" href="/profile-details">My Details</a>
               </li>
               <li class="nav-item" role="presentation">
-                <a class="nav-link" href="#">Ask a doubt</a>
-              </li>
-              <li class="nav-item" role="presentation">
                 <a class="nav-link active" href="/profile">Classroom</a>
               </li>
               <li class="nav-item" role="presentation">
@@ -78,10 +71,15 @@
       </div>
     </nav>
 
-    <div class="container" style="margin-top: 58px;">
+    <div class="container" style="margin-top: 58px; font-family: Basic, sans-serif;">
         <div class="row">
             <div class="col">
               <ul class="list-group">
+                <li class="list-group-item">
+                  <span>
+                    <a href="#" style="text-decoration: none;">Ask a doubt</a>
+                  </span>
+                </li>
                 <li class="list-group-item">
                   <span>
                     <a href="#" style="text-decoration: none;">Attendance</a>
@@ -94,13 +92,14 @@
                 </li>
                 <li class="list-group-item">
                   <span>
-                    <a href="#" style="text-decoration: none;">Blogs</a>
+                    <a href="/myMessages" style="text-decoration: none;">Messages</a>
                   </span>
                 </li>
               </ul>
             </div>
             <div class="col-lg-6" style="margin-right: 5px;margin-left: 6px; font-family: Calibri;">
                 <h1>Questions of the day.</h1>
+                <p class="lead">Note: You get 2 marks for each question.</p>
                 <div style="height: 500px;margin-top: 52px;margin-bottom: 25px; text-align: left;" id="questions_block">
                   <% for(var i = 0; i<questions.length; i++){ %>
                     <% if(questions[i].id == 'Simple Question'){ %>

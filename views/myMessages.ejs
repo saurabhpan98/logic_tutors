@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>My Messages</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="assets/css/Navigation-Clean.css">
+
+    <script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
+
+    <style media="screen">
+      body{
+        background: pink;
+      }
+
+      nav li{
+        padding: 10px 20px;
+      }
+
+      nav{
+        border-bottom: solid 0.2px lightgrey;
+        background: white;
+      }
+
+      .list-group-item:hover{
+        cursor: pointer;
+        background: lightgrey;
+      }
+
+      #contact_message{
+        margin-top: 20px;
+        text-align: left;
+      }
+
+      #hiddenMessage{
+        display: none;
+      }
+
+      #backButton, #trash, #more, #reply{
+        margin-top: 8px;
+        cursor: pointer;
+        border-radius: 20px;
+        padding: 8px;
+      }
+
+      #backButton:hover, #trash:hover, #more:hover, #reply:hover{
+        background: rgba(0, 0, 0, 0.1);
+        transition: all 0.5s;
+      }
+
+      #refresh, #settings{
+        cursor: pointer;
+        border-radius: 20px;
+        margin-bottom: -14px;
+        padding: 8px;
+      }
+
+      #refresh:hover, #settings:hover{
+        background: rgba(0, 0, 0, 0.1);
+        transition: all 0.5s;
+      }
+
+      #settings{
+        float: right;
+      }
+
+      #refresh{
+        margin-left: 40px;
+      }
+
+      #composeButton{
+        font-family: Basic, sans-serif;;
+        padding: 10px 20px;
+        border-radius: 30px;
+        border: solid 2px white;
+        color: black;
+        font-size: 15px;
+        background: white;
+        outline: none;
+      }
+
+      #composeHidden{
+        display: none;
+      }
+
+      #composeShow{
+        height: 500px;
+        width: 400px;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        background: white;
+        box-shadow: 0 0 10px grey;
+        text-align: left;
+        font-size: 16px;
+      }
+
+      .compose_recipents input{
+        border: none;
+        outline: none;
+        width: 100%;
+      }
+
+      #composeHeader:hover{
+        cursor: pointer;
+      }
+
+      #sendButton{
+        color: white;
+        padding: 3px 20px;
+        border-radius: 4px;
+        border: solid 1px #2E86C1;
+        background: #2E86C1;
+        outline: none;
+      }
+
+      #sendButton:hover{
+        background: #0E7CC6;
+        border: solid 1px #0E7CC6;
+      }
+
+      #messageSearchIcon{
+        position: absolute;
+        z-index: 2;
+        display: block;
+        width: 2rem;
+        height: 2rem;
+        line-height: 2rem;
+        margin-top: 9px;
+        margin-left: 4px;
+        text-align: center;
+        pointer-events: none;
+        color: #aaa;
+      }
+
+      #composeMessage{
+        width: 100%;
+        height: 270px;
+        outline: none;
+        border: none;
+      }
+
+      #closeButton{
+        border-radius: 15px;
+        font-size: 20px;
+        float: right;
+        margin: 0 5px;
+        padding: 3px;
+        margin-top: -1px;
+      }
+
+      #closeButton:hover{
+        cursor: pointer;
+        background: rgba(255,255,255,0.2);
+        transition: all 0.5s;
+      }
+
+      #composeTrash{
+        font-size: 20px;
+        float: right;
+        padding: 7px;
+        border-radius: 20px;
+      }
+
+      #composeTrash:hover{
+        background: rgba(0,0,0,0.2);
+        cursor: pointer;
+        transition: all 0.5s;
+      }
+
+      #makestar{
+        padding: 7px;
+        border-radius: 20px;
+        margin: -5px auto;
+        margin-bottom: -15px;
+        float: left;
+        margin-right: 20px;
+      }
+
+      #makestar:hover{
+        cursor: pointer;
+        background: rgba(0,0,0,0.2);
+        transition: all 0.5s;
+      }
+
+      #searchInput{
+        padding: 25px;
+        padding-left: 40px;
+        background: rgba(255,255,255,0.7);
+      }
+      #searchInput:focus{
+        background: white;
+        transition: all 0.3s;
+      }
+
+      @media only screen and (max-width: 700px){
+        #contact_message{
+          width: 100%;
+        }
+      }
+
+    </style>
+</head>
+
+<body class="text-center" style="color: rgb(0,0,0); font-family: Basic, sans-serif;">
+    <nav class="navbar navbar-light navbar-expand-xl text-center navigation-clean">
+        <div class="container">
+          <a class="navbar-brand" href="/faculty-profile" style="font-size: 30px;"><%= user.name %></a>
+          <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="nav navbar-nav ml-auto">
+              <li class="nav-item" role="presentation">
+                <a class="nav-link" href="/">Home</a>
+              </li>
+              <li class="nav-item" role="presentation">
+                <a class="nav-link" href="#">Ask a doubt</a>
+              </li>
+              <li class="nav-item" role="presentation">
+                <a class="nav-link" href="/faculty-profile">Classroom</a>
+              </li>
+              <li class="nav-item" role="presentation">
+                <a class="nav-link" href="/logout">Logout</a>
+              </li>
+            </ul>
+          </div>
+      </div>
+    </nav>
+
+    <div class="container" style="margin-top: 40px;">
+      <ion-icon name="search" id="messageSearchIcon"></ion-icon>
+      <input type="text" name="search" class="form-control" id="searchInput" placeholder="Search Name for message">
+    </div>
+
+    <hr>
+
+    <div class="container" id="contact_message">
+        <button type="button" id="composeButton"><ion-icon name="add" style="font-size: 20px; margin-right: 7px; margin-bottom: -5px;"></ion-icon>Compose</button>
+
+        <a href="#" data-toggle="tooltip" title="Refresh" style="text-decoration: none; color: black;">
+          <ion-icon name="refresh" id="refresh"></ion-icon>
+        </a>
+
+        <a href="#" data-toggle="tooltip" title="Settings" style="text-decoration: none; color: black;">
+          <ion-icon name="settings" id="settings"></ion-icon>
+        </a>
+
+        <div class="row" style="margin-bottom: 50px;">
+          <div class="col-md-2" style="margin-top: 40px;">
+
+            <ul class="list-group">
+              <li class="list-group-item" id="inbox">
+                <ion-icon name="mail-open" style="margin-right: 5px; margin-bottom: -2px;"></ion-icon> Inbox
+              </li>
+              <li class="list-group-item">
+                <ion-icon name="send" style="margin-right: 5px; margin-bottom: -2px;"></ion-icon> Sent
+              </li>
+              <li class="list-group-item">
+                <ion-icon name="folder-open" style="margin-right: 5px; margin-bottom: -2px;"></ion-icon> Draft
+              </li>
+              <li class="list-group-item">
+                <ion-icon name="star-outline" style="margin-right: 5px; margin-bottom: -2px;"></ion-icon> Starred
+              </li>
+              <li class="list-group-item">
+                <ion-icon name="trash" style="margin-right: 5px; margin-bottom: -2px;"></ion-icon> Trash
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-10" style="margin-top: 40px;">
+            <div class="" id="hiddenMessage" style="border: solid 0.5px lightgrey; padding: 0 20px; border-radius: 6px;"><ion-icon name="arrow-round-back" id="backButton"></ion-icon><ion-icon name="trash" id="trash" onclick = "deleteMessage()"></ion-icon><ion-icon name="create" id="reply" onclick = "replyMessage()"></ion-icon><ion-icon name="more" id="more"></ion-icon><p class="lead" style="font-size: 17px;"><span id="senderEmail"></span><br><span id="senderSubject"></span><br></p><p class="lead" id="message" style="font-size: 17px;"></p></div>
+
+            <ul class="list-group" id="shownMessage">
+              <% for(var i = allMessages.length - 1; i>=0; i--){ %>
+                <li class="list-group-item" onclick = "handleClick()" id=<%= allMessages[i]._id %>>
+                  <span><ion-icon name="star-outline" id="makestar">
+                  </ion-icon></span><%= allMessages[i].from %>
+                </li>
+              <% } %>
+            </ul>
+          </div>
+        </div>
+    </div>
+
+    <div class="composeMessage" id="composeHidden">
+      <header style="background: rgba(0, 0, 0, 0.75); padding: 7px 0; padding-left: 10px; color: white;" id="composeHeader">
+        <span style="font-family: Calibri; font-size: 17px;">New message</span>
+        <ion-icon name="close" id="closeButton"></ion-icon>
+      </header>
+
+      <div class="compose_recipents" style="padding-left: 10px; padding-right: 10px; padding-top: 17px;">
+        <form class="" id="form">
+          <input type="text" name="composeTo" id="composeTo" placeholder="To: " required/>
+          <hr>
+          <input type="text" name="composeSubject" placeholder="Subject: " required/>
+          <hr>
+          <textarea name="composeMessage" id="composeMessage" placeholder="Message" required/></textarea><br>
+          <button type="submit" id="sendButton">Send</button>
+          <ion-icon name="trash" id="composeTrash"></ion-icon>
+        </form>
+      </div>
+
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-animation.js"></script>
+    <script src="assets/js/clean-blog.js"></script>
+
+
+    <script type="text/javascript">
+      var allMessages = <%- JSON.stringify(allMessages) %> ;
+      var messageHidden = document.getElementById('hiddenMessage');
+      var messageList = document.getElementById('shownMessage');
+      var messageText = document.getElementById('message');
+      var senderEmail = document.getElementById('senderEmail');
+      var senderSubject = document.getElementById('senderSubject');
+
+      var inbox = document.getElementById('inbox');
+      var backButton = document.getElementById('backButton');
+
+      function handleClick(){
+        for(var i = 0; i<allMessages.length; i++){
+          if(event.target.id == allMessages[i]._id){
+            //alert(allMessages[i].message);
+            if(messageHidden.id == 'hiddenMessage'){
+              messageHidden.id = 'shownMessage';
+              messageList.id = 'hiddenMessage';
+              messageHidden.style.background = "white";
+
+              senderEmail.innerHTML = 'Email:  ' + allMessages[i].from;
+              senderSubject.innerHTML = 'Subject:  ' + allMessages[i].subject;
+              messageText.innerHTML = allMessages[i].message;
+            }
+            break;
+          }
+        }
+      }
+
+      inbox.onclick = function(){
+        messageList.id = 'shownMessage';
+        messageHidden.id = 'hiddenMessage';
+      }
+
+      backButton.onclick = function(){
+        messageList.id = 'shownMessage';
+        messageHidden.id = 'hiddenMessage';
+      }
+
+
+      //composing message
+      var composeButton = document.getElementById('composeButton');
+      var compose = document.getElementById('composeHidden');
+      var composeHeader = document.getElementById('composeHeader');
+      var closeButton = document.getElementById('closeButton');
+
+      var checksizeCounter = 0;
+
+      composeButton.onclick = function(){
+        if(compose.id == 'composeHidden'){
+          compose.id = 'composeShow';
+        }
+        else{
+          compose.id = 'composeHidden';
+          if(checksizeCounter%2 == 0){
+            checksizeCounter = 1;
+          }
+          else{
+            checksizeCounter = 0;
+          }
+        }
+      }
+
+      closeButton.onclick = function(){
+        compose.id = 'composeHidden';
+        if(checksizeCounter%2 == 0){
+          checksizeCounter = 1;
+        }
+        else{
+          checksizeCounter = 0;
+        }
+      }
+
+      composeHeader.onclick = function(){
+        if(checksizeCounter%2 == 0){
+          compose.style.height = "35px";
+          checksizeCounter++;
+        }
+        else{
+          compose.style.height = "500px";
+          checksizeCounter++;
+        }
+      }
+
+      //deleting messages
+      function deleteMessage(){
+        var parent = event.target.parentElement;
+        var childList = parent.childNodes;
+        var deleteMessage = childList[childList.length-1].innerHTML;
+
+        //alert(childList[childList.length-1].innerHTML)
+        for(var i = 0; i<allMessages.length; i++){
+          if(deleteMessage == allMessages[i].message){
+            //allMessages.splice(i, 1);
+            //location.reload();
+            //alert('Message Deleted')
+            event.preventDefault();
+
+            var deleteId = allMessages[i]._id;
+            $(document).ready(function(){
+
+              var deleteObject = {
+                id: deleteId,
+                deleteMessage: deleteMessage
+              }
+
+              $.post("/studentMessageDelete", deleteObject, function(){
+                alert('Message Moved to trash');
+                location.reload();
+              });
+
+            });
+          }
+        }
+      }
+
+      //searching message
+      var searchInput = document.getElementById('searchInput');
+
+      searchInput.onchange = function(){  //working on hitting enter
+        //alert(searchInput.value);
+        var isFound = false;
+        for(var i = 0; i<allMessages.length; i++){
+          if(searchInput.value == allMessages[i].from){
+            alert('Found record')
+            isFound = true;
+            break;
+          }
+        }
+        if(!isFound && searchInput.value != ''){
+          alert('Did not found record')
+        }
+      }
+
+      //replying for message
+      function replyMessage(){
+        //alert('Reply')
+        compose.id = 'composeShow';
+      }
+
+      //refresh
+      var refresh = document.getElementById('refresh');
+      refresh.onclick = function(){
+        location.reload();
+      }
+
+    </script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+
+        //sending composed message
+        $('form').submit(function(e){
+          e.preventDefault();
+
+          var composeTo = e.target.composeTo.value;
+          var composeSubject = e.target.composeSubject.value;
+          var composeMessage = e.target.composeMessage.value;
+
+          var composeObject = {
+            composeTo: composeTo,
+            composeSubject: composeSubject,
+            composeMessage: composeMessage
+          }
+          //e.target.parent().css({"border" : "solid 1px green"});
+          $.post("/saveStudentMessage", composeObject, function(){
+            alert('Message sent');
+            e.target.composeTo.value = '';
+            e.target.composeSubject.value = '';
+            e.target.composeMessage.value = '';
+          })
+        });
+      })
+
+    </script>
+</body>
+
+</html>

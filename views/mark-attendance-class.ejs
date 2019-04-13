@@ -12,16 +12,15 @@
     <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
     <link rel="stylesheet" href="assets/css/Contact-Form-Clean.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <link rel="stylesheet" href="assets/css/Login-Form-Clean.css">
-    <link rel="stylesheet" href="assets/css/Registration-Form-with-Photo.css">
-    <link rel="stylesheet" href="assets/css/Team-Boxed.css">
-    <link rel="stylesheet" href="assets/css/Testimonials.css">
-    <link rel="stylesheet" href="assets/css/Navigation-Clean.css">
+
 
     <!-- React cdn ---->
     <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- jQuery cdn -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
     <style media="screen">
       nav li{
@@ -30,12 +29,6 @@
 
       nav{
         border-bottom: solid 0.2px lightgrey;
-      }
-
-      #root{
-        padding: 60px 20px;
-        width: 50%;
-        margin: 10px auto;
       }
 
       #students{
@@ -51,12 +44,30 @@
         border-radius: 10px;
       }
 
-      #attendance-heading, #percentage-present{
-        text-align: left;
+      #studentList{
+        width: 50%;
+      }
+
+      .attendanceButtonN{
+        background: #E74C3C;
+        border-radius: 4px;
+        color: white;
+        font-family: Calibri;
+        border: solid 2px #E74C3C;
+        outline: none;
+      }
+
+      .attendanceButtonY{
+        background: #2E86C1;
+        border-radius: 4px;
+        color: white;
+        font-family: Calibri;
+        border: solid 2px #2E86C1;
+        outline: none;
       }
 
       @media only screen and (max-width: 700px){
-        #root{
+        #studentList{
           width: 100%;
         }
       }
@@ -91,55 +102,89 @@
       </div>
     </nav>
 
-    <div class="root" id="root">
-
+    <div class="container" style="margin-top: 90px; font-family: Calibri;" id="studentList">
+      <% if(allStudents.length != 0){ %>
+        <h1 style="text-align: left;">The students of class <%= allStudents[0].class %> are </h1> <br>
+        <ul class="list-group">
+          <% for(var i = 0; i<allStudents.length; i++){ %>
+            <li class="list-group-item" id=<%= allStudents[i]._id %> >
+              <span style="float: left;"><%= i+1 %>.</span>
+              <span id="name"><%= allStudents[i].name %></span>
+              <button type="button" style="float: right;" onclick = "handleAttendance()" class="attendanceButtonN">A</button>
+            </li>
+          <% } %>
+        </ul>
+      <% } else{ %>
+        <h1 style="text-align: center; font-family: Calibri; margin-top: 90px;">No class selected. Please select the class.</h1>
+      <% } %>
     </div>
-    <div class="container">
+
+    <div class="container" style="margin-top: 40px; margin-bottom: 100px;">
       <a href="/mark-attendance" style="text-decoration: none;">
         <button type="button" class="btn btn-primary" style="margin-top: 20px;">Select another class</button>
       </a>
-      <a href="/faculty-profile" style="text-decoration: none;">
-        <button type="button" class="btn btn-success" style="margin-top: 20px;">Submit Attendance</button>
-      </a>
+      <% if(allStudents.length != 0){ %>
+        <a href="/faculty-profile" style="text-decoration: none;">
+          <button type="button" class="btn btn-success" style="margin-top: 20px;">Submit Attendance</button>
+        </a>
+      <% } %>
     </div>
 
-    <footer style="margin-top: 73px;">
-        <hr>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-10 col-lg-8 mx-auto">
-                    <ul class="list-inline text-center">
-                        <li class="list-inline-item">
-                          <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-twitter fa-stack-1x fa-inverse" data-bs-hover-animate="tada"></i>
-                          </span>
-                        </li>
-                        <li class="list-inline-item">
-                          <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-facebook fa-stack-1x fa-inverse" data-bs-hover-animate="tada"></i>
-                          </span>
-                        </li>
-                        <li class="list-inline-item">
-                          <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-instagram fa-stack-1x fa-inverse" data-bs-hover-animate="tada"></i>
-                          </span>
-                        </li>
-                    </ul>
-                    <p class="lead text-muted copyright" style="font-size: 19px;">Copyright&nbsp;©&nbsp;Tutors 2019, Created by <a href="https://saurabh-portfolio.herokuapp.com" style="text-decoration: none;">Saurabh Panchal</a></p>
-                </div>
-            </div>
-        </div>
-    </footer>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/bs-animation.js"></script>
     <script src="assets/js/clean-blog.js"></script>
 
+    <script type="text/javascript">
+
+      //function for changing color and text of button
+      function handleAttendance(){
+        var parentOfEvent = event.target.parentElement;
+        var parentId = parentOfEvent.id;
+
+        if(event.target.className == 'attendanceButtonN'){
+          event.target.className = 'attendanceButtonY';
+          event.target.innerHTML = 'P';
+
+          var attendanceObject = {
+            id: parentId,
+            attendanceStatus: 'P'
+          }
+          event.preventDefault();
+          $(document).ready(function(){
+            $.post('/mark-attendance-class', attendanceObject, function(){
+              console.log('marked present')
+            })
+          })
+        }
+        else{
+          event.target.className = 'attendanceButtonN';
+          event.target.innerHTML = 'A';
+
+          var attendanceObject = {
+            id: parentId,
+            attendanceStatus: 'A'
+          }
+          event.preventDefault();
+          $(document).ready(function(){
+            $.post('/mark-attendance-class', attendanceObject, function(){
+              console.log('marked absent')
+            })
+          })
+        }
+      }
+    </script>
+
+    <script type="text/javascript">
+      //handling sending data to server
+
+      $(document).ready(function(){
+
+      })
+    </script>
+
     <script type="text/babel">
-      class App extends React.Component{
+      /*class App extends React.Component{
         state = {
           data: [],
           id: 0,
@@ -225,7 +270,7 @@
         }
       }
 
-      ReactDOM.render(<App />, document.getElementById('root'));
+      ReactDOM.render(<App />, document.getElementById('root'));*/
     </script>
   </body>
 

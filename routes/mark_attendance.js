@@ -13,7 +13,7 @@ router.use(cookieParser());
 
 //self-made modules
 var local = require('../config/faculty-local-signin');
-var Signup = require('../models/signup');
+var User = require('../models/signup');
 
 //for local strategy
 // Express Session
@@ -48,18 +48,28 @@ router.post('/mark-attendance', function(req, res){
 
 router.get('/mark-attendance-class', function(req, res){
   if(req.user){
-    res.render('mark-attendance-class', {user: req.user});
+    User.find({class: currentClass}).then(function(allStudents){
+      res.render('mark-attendance-class', {user: req.user, allStudents: allStudents});
+      currentClass = '';
+    })
   }
   else{
     res.redirect('/faculty-signin');
   }
+});
+
+
+router.post('/mark-attendance-class', function(req, res){
+  User.findOne({_id: req.body.id}).then(function(person){
+    if(req.body.attendanceStatus == 'P'){
+      console.log(person.name + ' is marked present');
+    }
+    else{
+      console.log(person.name + ' is marked absent');
+    }
+  })
+  res.redirect('/mark-attendance-class');
 })
 
 
-//sending student list of class selected
-router.get('/getClassStudent', function(req, res){
-  Signup.find({class: currentClass}).then(function(data){
-    res.json({data: data});
-  });
-});
 module.exports = router;

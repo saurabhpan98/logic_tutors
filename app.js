@@ -1,13 +1,17 @@
 var express = require('express');
 var mongoose = require('mongoose');
+
+//self made routes
 var links = require('./routes/links');
 var faculty_links = require('./routes/faculty_links');
 var enter_questions = require('./routes/enter_question');
 var mark_attendance = require('./routes/mark_attendance');
+var contact_messages = require('./routes/contact-messages');
+var studentMessages = require('./routes/student-messages');
 
 var app = express();
 
-//var port = process.env.PORT || 8080
+var port = process.env.PORT || 8080
 
 app.set('view engine', 'ejs');
 app.use(express.static('views'));
@@ -20,6 +24,8 @@ app.use('/', links);
 app.use('/', faculty_links);
 app.use('/', enter_questions);
 app.use('/', mark_attendance);
+app.use('/', contact_messages);
+app.use('/', studentMessages);
 
 /*
 app.listen(3000, function(){

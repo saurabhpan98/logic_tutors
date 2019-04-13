@@ -41,7 +41,7 @@ router.get('/faculty-signin', function(req, res){
 router.post('/faculty-signin', passport.authenticate('local'), function(req, res){
   console.log(req.user.name + ' logged in..');
 
-  res.render('faculty-profile', {user: req.user});
+  res.redirect('/faculty-profile');
 });
 
 

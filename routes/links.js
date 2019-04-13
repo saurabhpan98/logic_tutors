@@ -11,6 +11,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var Signup = require('../models/signup');
 var Contact = require('../models/contact-model');
 var Question = require('../models/questions-model');
+var StudentMessages = require('../models/student-messages-model');
 //var keys = require('./config/keys');
 var local = require('../config/student-local-login');
 
@@ -40,7 +41,6 @@ router.get('/', function(req, res){
 router.get('/about', function(req, res){
   res.render('about', {user: req.user});
 });
-
 
 //contact us form
 router.get('/contact-us', function(req, res){
@@ -88,9 +88,7 @@ router.post('/signin', passport.authenticate('local'), function(req, res){
     }
 
     //sending questions
-    Question.find({}).then(function(questions){
-      res.render('profile', {user: req.user, classmates: classmates, questions: questions});
-    });
+    res.redirect('/profile');
   })
 });
 
@@ -144,7 +142,9 @@ router.get('/profile-details', function(req, res){
 
 //signup routes
 router.get('/signup', function(req, res){
-  res.render('signup', {user: req.user});
+  Signup.find({}).then(function(allUsers){
+    res.render('signup', {user: req.user, allUsers: allUsers});
+  })
 });
 
 router.post('/signup', function(req, res){
@@ -171,13 +171,27 @@ router.post('/signup', function(req, res){
         newUser.save().then(function(person){
           console.log(req.body);
           //res.redirect('/signup');
+          //sending the very first message to one who creates a new ID ---------------------------------
+          var newMessage = {
+            from: 'Saurabh Panchal',
+            subject: 'Welcome to Logic Tutors',
+            message: 'Hey there. Congrats you are now the part of most beautiful online learning coaching classes. You can ask your doubts anytime related to site at - srbhpanchal98@gmail.com . Thanks.'
+          };
+
+          //no object present, create a new one
+          var newObject = new StudentMessages({
+            personalid: person._id,  //this will be the personal ID of user
+            email: person.email,
+            messages: [newMessage]
+          });
+          // newObject.messages.push(newMessage);
+
+          //entering first object into the database
+          newObject.save().then(function(result){
+            console.log(result.email);
+          }); //---------------------------------------------------------------------------------------------
           res.render('signup-1', {user: person});
         });
-        /*Signup.create(req.body).then(function(person){
-          console.log(req.body);
-          //res.redirect('/signup');
-          res.render('signup-1', {user: person});
-        });*/
       }
       else{
         console.log('Password not same..');

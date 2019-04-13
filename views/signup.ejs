@@ -76,7 +76,7 @@
 
 <body>
     <nav class="navbar navbar-light navbar-expand-lg fixed-top" id="mainNav" style="font-family: 'Open Sans', sans-serif;">
-        <div class="container"><a class="navbar-brand" href="index.html" style="font-size: 30px;">Tutors</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+        <div class="container"><a class="navbar-brand" href="/" style="font-size: 30px;">Tutors</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
             <div
                 class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="nav navbar-nav text-center ml-auto">
@@ -109,7 +109,32 @@
         </div>
     </header>
 
-    <div className="register-photo" style="background-color: rgba(241,247,252,0);" id="signup-form">
+    <div class="register-photo" style="background-color: rgba(241,247,252,0);">
+        <div class="shadow-lg form-container">
+            <div class="image-holder" style="background-image: url(&quot;assets/img/signup%20wallpaper%20laptop.png&quot;);"></div>
+            <form method="post" action = "/signup" onsubmit="handleSubmit()">
+                <h2 class="text-center">
+                  <strong>Create</strong> an account.
+                </h2>
+                <p class="lead" id="message"></p>
+                <div class="form-group">
+                  <input class="form-control" id="email" type="email" name="email" placeholder="Email" style="font-family: 'Open Sans', sans-serif;" required/>
+                </div>
+                <div class="form-group">
+                  <input class="form-control" id="password" type="password" name="password" placeholder="Password" style="font-family: 'Open Sans', sans-serif;" required/>
+                </div>
+                <div class="form-group">
+                  <input class="form-control" id="password-repeat" type="password" name="password_repeat" placeholder="Password (repeat)" style="font-family: 'Open Sans', sans-serif;" required/>
+                </div>
+                <div class="form-group">
+                    <div class="form-check"><label class="form-check-label" style="font-family: 'Open Sans', sans-serif;"><input class="form-check-input" type="checkbox" required/>I agree to the license terms.</label></div>
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-primary btn-block" type="submit" style="font-family: 'Open Sans', sans-serif;background-color: rgb(18,16,17);">Sign Up</button>
+                </div>
+                <a href="/signin" class="already" style="font-family: 'Open Sans', sans-serif;">You already have an account? Login here.</a>
+            </form>
+        </div>
     </div>
 
     <hr>
@@ -134,7 +159,7 @@
 
 
     <script type="text/babel">
-      class App extends React.Component{
+      /*class App extends React.Component{
 
         state = {
           data: [],
@@ -215,9 +240,35 @@
         }
       }
 
-      ReactDOM.render(<App />, document.getElementById('signup-form'));
+      ReactDOM.render(<App />, document.getElementById('signup-form'));*/
     </script>
 
+    <script type="text/javascript">
+      /*var allUsers = <%- JSON.stringify(allUsers) %> ;
+      var email = document.getElementById('email');
+      var password = document.getElementById('password');
+      var password_repeat = document.getElementById('password_repeat');
+      var message = document.getElementById('message');
+
+      function handleSubmit(){
+        var isUserExist = false;
+        for(var i = 0; i<allUsers.length; i++){
+          //user exist
+          if(allUsers[i].email == email.value){
+            isUserExist = true;
+            break;
+          }
+        }
+
+        if(isUserExist){
+          event.preventDefault();
+          message.innerHTML = "User already exist";
+          message.style.color = "red";
+          message.style.fontSize = "15px";
+        }
+      }*/
+
+    </script>
 </body>
 
 </html>
