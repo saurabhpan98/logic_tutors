@@ -17,7 +17,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('views'));
 
 //mongoose.connect('mongodb://localhost/tutorsDB');
-mongoose.connect('mongodb://saurabh-panchal:loigctutors1@ds145790.mlab.com:45790/logictutors')
+mongoose.connect('mongodb://saurabh-panchal:logictutors1@ds145790.mlab.com:45790/logictutors')
 
 //routes
 app.use('/', links);
