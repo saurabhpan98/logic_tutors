@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
 
     <style media="screen">
       #chat-google{
@@ -25,11 +28,68 @@
         right: 50px;
         cursor: pointer;
       }
+
+      #newsletter button{
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        border: solid 3.9px #F5B041;
+        background: #F5B041;
+        color: white;
+        padding-right: 8px;
+        font-size: 19px;
+        outline: none;
+        float: left;
+      }
+
+      #newsletter button:hover{
+        background: #F39C12;
+        border: solid 3.9px #F39C12;
+        transition: all 0.5s;
+      }
+
+      #newsletter input{
+        margin-right: -2px;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        margin-left: 37%;
+      }
+
+      #newsletter{
+        margin: 30px auto;
+        padding: 30px 0;
+        float: center;
+        text-align: center;
+      }
+
+      .facultySignin{
+        padding: 4px 20px;
+        border-radius: 4px;
+        color: white;
+        font-family: Calibri;
+        background: #E74C3C;
+        border: solid 1px #E74C3C;
+        font-size: 20px;
+        outline: none;
+      }
+
+      .facultySignin:hover{
+        border: solid 1px #CB4335;
+        background: #CB4335;
+        transition: all 0.5s;
+      }
+
+      @media only screen and (max-width: 700px){
+        #newsletter input{
+          width: 70%;
+          margin-left: 10px;
+        }
+      }
+
     </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-light navbar-expand-lg fixed-top" id="mainNav" style="font-family: 'Open Sans', sans-serif;">
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top" id="mainNav">
         <div class="container">
           <a class="navbar-brand" href="/" style="font-size: 30px;">Tutors</a>
           <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
@@ -72,7 +132,7 @@
             <div class="row">
                 <div class="col-md-10 col-lg-8 mx-auto">
                     <div class="site-heading">
-                        <h1>Awesome Tutors</h1>
+                        <h1 style="font-family: 'Montserrat', sans-serif;">Logic Tutors</h1>
                         <span class="subheading" style="font-family: Calibri; margin-top: 35px;">We are the legends in field of providing education with the aim of educating the world with best education and resources.</span>
                     </div>
                 </div>
@@ -90,7 +150,7 @@
             <img src="boy-laptop.jpg" alt="boy studying on laptop" height="100%" width="100%">
           </div>
           <div class="col-md-8">
-            <h1>Our Aim</h1>
+            <h1 style="font-family: 'Montserrat', sans-serif;">Our Aim</h1>
             <h4 style="font-family: Calibri; margin-top: 20px;">"Make India largest educated country"</h4>
             <p class="lead" style="font-family: Calibri; margin-top: 0;">
               We started in 1957 with the aim of educating India with the best of the resources, providing
@@ -109,7 +169,7 @@
       <div class="section" style="margin-top: 90px;">
         <div class="row">
           <div class="col-md-8">
-            <h1>Why join us?</h1>
+            <h1 style="font-family: 'Montserrat', sans-serif;">Why join us?</h1>
             <h4 style="font-family: Calibri; margin-top: 20px;">We have the answer for your question.</h4>
             <p class="lead" style="font-family: Calibri;">
               We at Logic Tutors work hard and give our 100% to teach every child with the best of our knowledge,
@@ -129,20 +189,80 @@
 
     <hr>
 
-    <% if(!user) { %>
-      <div class="container" style="text-align: center; margin-top: 40px;">
-          <h2 style="font-family: Calibri; ">We have a special login method for faculties.</h2>
-          <p style="font-family: Basic, sans-serif;">Now you can track the student work..</p>
-          <a class="nav-link" href="/faculty-signin"><button class="btn btn-danger" type="button">Login</button></a>
+    <div class="container" style="text-align: center; margin: 60px auto; font-family: Calibri;">
+      <h1 style="font-family: 'Montserrat', sans-serif;">Enjoyed our site? Wanna join us?</h1>
+      <br>
+      <span>Subscribe to our newsletter</span>
+      <form class="form-inline" id="newsletter">
+        <input type="email" style="float: center;" class="form-control" name="newsletterEmail" placeholder="Enter your true email" required/>
+        <button type="submit" id="newsletterButton">Subscribe</button>
+      </form>
+    </div>
+
+    <hr>
+
+    <div class="container" style="text-align: center; margin: 90px auto;">
+      <h1 style="font-family: 'Montserrat', sans-serif;">Some reviews of our alumni</h1>
+      <div id="demo" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ul class="carousel-indicators">
+          <li data-target="#demo" data-slide-to="0" class="active"></li>
+          <li data-target="#demo" data-slide-to="1"></li>
+          <li data-target="#demo" data-slide-to="2"></li>
+        </ul>
+
+        <!-- The slideshow -->
+        <div class="carousel-inner" style="font-family: Calibri;">
+          <div class="carousel-item active">
+            <p class="lead">
+              This site is awesome and I have studied here for more than 10 years
+              and really enjoyed the resources and classes.
+            </p>
+          </div>
+          <div class="carousel-item">
+            <p class="lead">
+              This site is awesome and I have studied here for more than 10 years
+              and really enjoyed the resources and classes.
+            </p>
+          </div>
+          <div class="carousel-item">
+            <p class="lead">
+              This site is awesome and I have studied here for more than 10 years
+              and really enjoyed the resources and classes.
+            </p>
+          </div>
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo" data-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </a>
+
       </div>
-    <% } %>
+    </div>
 
     <hr>
     <div class="container" style="text-align: center; margin-top: 80px; font-family: Calibri;">
-      <h1>Where do we exist?</h1>
+      <h1 style="font-family: 'Montserrat', sans-serif;">Where do we exist?</h1>
       <p class="lead">You can also find us in Netaji Nagar. Use maps to get directions.</p>
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7007.680698186698!2d77.18144202525147!3d28.574556429762577!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1d783838fb5d%3A0xb19642d3e39b27ac!2sNetaji+Nagar%2C+New+Delhi%2C+Delhi+110023!5e0!3m2!1sen!2sin!4v1554741177473!5m2!1sen!2sin" width="100%" height="450" frameborder="0" allowfullscreen></iframe>
     </div>
+
+    <hr>
+
+    <% if(!user) { %>
+      <div class="container" style="text-align: center; margin: 70px auto;">
+          <h1 style="font-family: 'Montserrat', sans-serif;">We have a special login portal for faculties.</h1>
+          <p style="font-family: Basic, sans-serif;">Now you can track the student work..</p>
+          <button class="facultySignin" type="button">
+            <a href="/faculty-signin" style="text-decoration: none; color: white;">Faculty Login</a>
+          </button>
+      </div>
+    <% } %>
+
     <footer>
       <hr>
         <div class="container">
@@ -159,8 +279,14 @@
         </div>
     </footer>
 
-    <span class="fa-stack fa-lg" id="chat-google"><i class="fa fa-circle fa-stack-2x" style="color: #C0392B;"></i><i class="fa fa-google fa-stack-1x fa-inverse" data-bs-hover-animate="tada"></i></span>
-    <span class="fa-stack fa-lg" id="chat-github"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-github fa-stack-1x fa-inverse" data-bs-hover-animate="tada"></i></span>
+    <span class="fa-stack fa-lg" id="chat-google">
+      <i class="fa fa-circle fa-stack-2x" style="color: #C0392B;"></i>
+      <i class="fa fa-google fa-stack-1x fa-inverse" data-bs-hover-animate="tada"></i>
+    </span>
+    <span class="fa-stack fa-lg" id="chat-github">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-github fa-stack-1x fa-inverse" data-bs-hover-animate="tada"></i>
+    </span>
 
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>

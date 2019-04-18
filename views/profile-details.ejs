@@ -10,14 +10,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
     <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Basic">
-    <link rel="stylesheet" href="assets/css/Contact-Form-Clean.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <link rel="stylesheet" href="assets/css/Login-Form-Clean.css">
-    <link rel="stylesheet" href="assets/css/Navigation-Clean.css">
-    <link rel="stylesheet" href="assets/css/Registration-Form-with-Photo.css">
-    <link rel="stylesheet" href="assets/css/Team-Boxed.css">
-    <link rel="stylesheet" href="assets/css/Testimonials.css">
 
     <style media="screen">
       nav li{
@@ -26,41 +18,83 @@
 
       nav{
         border-bottom: solid 0.2px lightgrey;
+        box-shadow: 0 0 10px lightgrey;
       }
+
+      /* sidenav CSS -----------*/
+      .sidenav {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        /*left: 0;*/
+        right: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+        font-family: Basic, sans-serif;
+        text-align: center;
+      }
+
+      .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 23px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+      }
+
+      .sidenav a:hover {
+        color: #f1f1f1;
+      }
+
+      .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+      }
+
+      @media screen and (max-height: 450px) {
+        .sidenav {padding-top: 15px;}
+        .sidenav a {font-size: 18px;}
+      }
+      /* ---------------sidenav CSS ends --------*/
 
     </style>
 </head>
 
 <body>
-    <div>
-        <nav class="navbar navbar-light navbar-expand-md text-center navigation-clean" style="font-family: Basic, sans-serif;">
-            <div class="container">
-              <a class="navbar-brand" href="/profile" style="font-size: 30px;"><%= user.name %></a>
-              <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="navbar-toggler-icon"></span>
-              </button>
-                <div
-                    class="collapse navbar-collapse" id="navcol-1">
-                    <ul class="nav navbar-nav ml-auto">
-                      <li class="nav-item" role="presentation">
-                        <a class="nav-link" href="/">Home</a>
-                      </li>
-                      <li class="nav-item" role="presentation">
-                        <a class="nav-link active" href="/profile-details">My Details</a>
-                      </li>
-                      <li class="nav-item" role="presentation">
-                        <a class="nav-link" href="/profile">Classroom</a>
-                      </li>
-                      <li class="nav-item" role="presentation">
-                        <a class="nav-link" href="/logout">Logout</a>
-                      </li>
-                    </ul>
-            </div>
-    </div>
+    <nav class="navbar navbar-light navbar-expand-xl text-center navigation-clean" style="font-family: Basic, sans-serif;">
+        <div class="container">
+          <a class="navbar-brand" href="/profile" style="font-size: 30px; margin-left: 10px;"><%= user.name %></a>
+          <div class="" id="navcol-1">
+            <ul class="nav navbar-nav ml-auto">
+              <li class="nav-item" role="presentation">
+                <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+              </li>
+            </ul>
+          </div>
+      </div>
     </nav>
+
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a class="nav-link" href="/">Home</a>
+      <a class="nav-link" href="/profile-details" style="color: white;">My Details</a>
+      <a class="nav-link active" href="/profile">Classroom</a>
+      <a class="nav-link" href="#">Ask a doubt</a>
+      <a class="nav-link" href="#">Attendance</a>
+      <a class="nav-link" href="#">Assignments</a>
+      <a class="nav-link" href="/myMessages">Messages</a>
+      <a class="nav-link" href="/logout">Logout</a>
     </div>
-    <div style="margin-top: 73px;">
+
+    <div style="margin: 73px auto;">
         <div class="container">
             <div class="row">
                 <div class="col-md-5 col-lg-4 text-center"><img class="img-fluid shadow-lg" src="assets/img/1.jpg">
@@ -78,24 +112,22 @@
             </div>
         </div>
     </div>
-    <footer style="margin-top: 86px;">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-10 col-lg-8 mx-auto">
-                    <ul class="list-inline text-center">
-                        <li class="list-inline-item"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-twitter fa-stack-1x fa-inverse" data-bs-hover-animate="tada"></i></span></li>
-                        <li class="list-inline-item"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-facebook fa-stack-1x fa-inverse" data-bs-hover-animate="tada"></i></span></li>
-                        <li class="list-inline-item"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-instagram fa-stack-1x fa-inverse" data-bs-hover-animate="tada"></i></span></li>
-                    </ul>
-                    <p class="lead text-muted copyright" style="font-size: 19px;font-family: Basic, sans-serif;">Copyright&nbsp;©&nbsp;Tutors 2019, Created by <a href="https://saurabh-portfolio.herokuapp.com" style="text-decoration: none;">Saurabh Panchal</a></p>
-                </div>
-            </div>
-        </div>
-    </footer>
+
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/bs-animation.js"></script>
     <script src="assets/js/clean-blog.js"></script>
+
+    <script>
+      //nav script
+      function openNav() {
+        document.getElementById("mySidenav").style.width = "300px";
+      }
+
+      function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+      }
+    </script>
 </body>
 
 </html>

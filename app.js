@@ -11,13 +11,13 @@ var studentMessages = require('./routes/student-messages');
 
 var app = express();
 
-var port = process.env.PORT || 8080
+//var port = process.env.PORT || 8080
 
 app.set('view engine', 'ejs');
 app.use(express.static('views'));
 
-//mongoose.connect('mongodb://localhost/tutorsDB');
-mongoose.connect('mongodb://saurabh-panchal:logictutors1@ds145790.mlab.com:45790/logictutors')
+mongoose.connect('mongodb://localhost/tutorsDB');
+//mongoose.connect('mongodb://saurabh-panchal:logictutors1@ds145790.mlab.com:45790/logictutors')
 
 //routes
 app.use('/', links);
@@ -27,12 +27,13 @@ app.use('/', mark_attendance);
 app.use('/', contact_messages);
 app.use('/', studentMessages);
 
-/*
+
 app.listen(3000, function(){
-  console.log('tutors app running...');
-});*/
+  console.log('logic tutors app running...');
+});
 
 //this is important for hosting
+/*
 app.listen(port, () => {
   console.log('App running..');
-});
+});*/

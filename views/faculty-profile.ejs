@@ -15,7 +15,13 @@
     <link rel="stylesheet" href="assets/css/Testimonials.css">
     <link rel="stylesheet" href="assets/css/Navigation-Clean.css">
 
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
     <style media="screen">
+      h1{
+        font-family: 'Montserrat', sans-serif;
+      }
       nav li{
         padding: 10px 20px;
       }
@@ -24,6 +30,49 @@
         border-bottom: solid 0.2px lightgrey;
       }
 
+      /* sidenav CSS -----------*/
+      .sidenav {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        /*left: 0;*/
+        right: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+        font-family: Basic, sans-serif;
+      }
+
+      .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 23px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+      }
+
+      .sidenav a:hover {
+        color: #f1f1f1;
+      }
+
+      .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+      }
+
+      @media screen and (max-height: 450px) {
+        .sidenav {padding-top: 15px;}
+        .sidenav a {font-size: 18px;}
+      }
+      /* ---------------sidenav CSS ends --------*/
+
     </style>
 </head>
 
@@ -31,71 +80,51 @@
     <nav class="navbar navbar-light navbar-expand-xl text-center navigation-clean" style="font-family: Basic, sans-serif;">
         <div class="container">
           <a class="navbar-brand" href="/faculty-profile" style="font-size: 30px;"><%= user.name %></a>
-          <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navcol-1">
+          <div class="" id="navcol-1">
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item" role="presentation">
-                <a class="nav-link" href="/">Home</a>
-              </li>
-              <li class="nav-item" role="presentation">
-                <a class="nav-link" href="#">Doubt session</a>
-              </li>
-              <li class="nav-item" role="presentation">
-                <a class="nav-link active" href="/faculty-profile">Classroom</a>
-              </li>
-              <li class="nav-item" role="presentation">
-                <a class="nav-link" href="/logout">Logout</a>
+                <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
               </li>
             </ul>
           </div>
       </div>
     </nav>
 
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a class="nav-link" href="/">Home</a>
+      <a class="nav-link" href="#">Doubt Session</a>
+      <a class="nav-link active" href="/faculty-profile" style="color: white;">Classroom</a>
+      <a class="nav-link" href="/mark-attendance">Attendance</a>
+      <a class="nav-link" href="/enter-questions">Enter Questions</a>
+      <a class="nav-link" href="#">Assignments</a>
+      <% if(user.status == 'Faculty' && user.email == 'srbhpanchal98@gmail.com'){ %>
+        <a href="/contact-messages" style="text-decoration: none;">Contact Messages</a>
+      <% } %>
+      <a class="nav-link" href="/myMessages">Messages</a>
+      <a class="nav-link" href="/logout">Logout</a>
+    </div>
+
     <div class="container" style="margin-top: 58px; font-family: Basic, sans-serif;">
-        <div class="row">
-            <div class="col-md-4">
-              <ul class="list-group">
-                <li class="list-group-item">
-                  <span>
-                    <a href="/mark-attendance" style="text-decoration: none;">Attendance</a>
-                  </span>
-                </li>
-                <li class ="list-group-item">
-                  <span>
-                    <a href="/enter-questions" style="text-decoration: none;">Enter Questions</a>
-                  </span>
-                </li>
-                <li class ="list-group-item">
-                  <span>
-                    <a href="#" style="text-decoration: none;">Assignments</a>
-                  </span>
-                </li>
-                <li class ="list-group-item">
-                  <span>
-                    <a href="/contact-messages" style="text-decoration: none;">Contact Messages</a>
-                  </span>
-                </li>
-                <li class ="list-group-item">
-                  <span>
-                    <a href="/myMessages" style="text-decoration: none;">Messages</a>
-                  </span>
-                </li>
-              </ul>
-            </div>
-            <div class="col-md-8">
-                <h1>Questions of the day.</h1>
-                <div style="height: 382px;margin-top: 52px;margin-bottom: 25px;"></div>
-            </div>
-        </div>
+      <h1>Questions of the day.</h1>
+      <div style="height: 382px;margin-top: 52px;margin-bottom: 25px;"></div>
     </div>
 
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/bs-animation.js"></script>
     <script src="assets/js/clean-blog.js"></script>
+
+    <script>
+      //nav script
+      function openNav() {
+        document.getElementById("mySidenav").style.width = "300px";
+      }
+
+      function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+      }
+    </script>
 </body>
 
 </html>
