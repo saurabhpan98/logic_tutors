@@ -17,7 +17,9 @@
 
     <style media="screen">
       body{
-        background: pink;
+        background-image: url('mountains.jpg');
+        background-position: top left;
+        background-repeat: no-repeat;
       }
 
       nav li{
@@ -26,12 +28,17 @@
 
       nav{
         border-bottom: solid 0.2px lightgrey;
-        background: white;
+        background: rgba(255, 255, 255, 0.9);
       }
 
       .list-group-item:hover{
         cursor: pointer;
         background: lightgrey;
+      }
+
+      #messageSection ul{
+        height: 273px;
+        overflow: auto;
       }
 
       #contact_message{
@@ -60,10 +67,11 @@
         border-radius: 20px;
         margin-bottom: -14px;
         padding: 8px;
+        background: white;
       }
 
       #refresh:hover, #settings:hover{
-        background: rgba(0, 0, 0, 0.1);
+        background: rgba(255, 255, 255, 0.5);
         transition: all 0.5s;
       }
 
@@ -72,7 +80,7 @@
       }
 
       #refresh{
-        margin-left: 40px;
+        margin-left: 50px;
       }
 
       #composeButton{
@@ -200,6 +208,49 @@
         transition: all 0.3s;
       }
 
+      /* sidenav CSS -----------*/
+      .sidenav {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        /*left: 0;*/
+        right: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+        font-family: Basic, sans-serif;
+      }
+
+      .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 23px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+      }
+
+      .sidenav a:hover {
+        color: #f1f1f1;
+      }
+
+      .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+      }
+
+      @media screen and (max-height: 450px) {
+        .sidenav {padding-top: 15px;}
+        .sidenav a {font-size: 18px;}
+      }
+      /* ---------------sidenav CSS ends --------*/
+
       @media only screen and (max-width: 700px){
         #contact_message{
           width: 100%;
@@ -210,31 +261,33 @@
 </head>
 
 <body class="text-center" style="color: rgb(0,0,0); font-family: Basic, sans-serif;">
-    <nav class="navbar navbar-light navbar-expand-xl text-center navigation-clean">
+    <nav class="navbar navbar-light navbar-expand-xl text-center navigation-clean" style="font-family: Basic, sans-serif;">
         <div class="container">
           <a class="navbar-brand" href="/faculty-profile" style="font-size: 30px;"><%= user.name %></a>
-          <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navcol-1">
+          <div class="" id="navcol-1">
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item" role="presentation">
-                <a class="nav-link" href="/">Home</a>
-              </li>
-              <li class="nav-item" role="presentation">
-                <a class="nav-link" href="#">Ask a doubt</a>
-              </li>
-              <li class="nav-item" role="presentation">
-                <a class="nav-link" href="/faculty-profile">Classroom</a>
-              </li>
-              <li class="nav-item" role="presentation">
-                <a class="nav-link" href="/logout">Logout</a>
+                <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
               </li>
             </ul>
           </div>
       </div>
     </nav>
+
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a class="nav-link" href="/">Home</a>
+      <a class="nav-link" href="#">Doubt Session</a>
+      <a class="nav-link active" href="/faculty-profile">Classroom</a>
+      <a class="nav-link" href="/mark-attendance">Attendance</a>
+      <a class="nav-link" href="/enter-questions">Enter Questions</a>
+      <a class="nav-link" href="#">Assignments</a>
+      <% if(user.status == 'Faculty' && user.email == 'srbhpanchal98@gmail.com'){ %>
+        <a href="/contact-messages" style="text-decoration: none; color: white;">Contact Messages</a>
+      <% } %>
+      <a class="nav-link" href="/myMessages">Messages</a>
+      <a class="nav-link" href="/logout">Logout</a>
+    </div>
 
     <div class="container" style="margin-top: 40px;">
       <ion-icon name="search" id="messageSearchIcon"></ion-icon>
@@ -246,7 +299,7 @@
     <div class="container" id="contact_message">
         <button type="button" id="composeButton"><ion-icon name="add" style="font-size: 20px; margin-right: 7px; margin-bottom: -5px;"></ion-icon>Compose</button>
 
-        <a href="#" data-toggle="tooltip" title="Refresh" style="text-decoration: none; color: black;">
+        <a href="/contact-messages" data-toggle="tooltip" title="Refresh" style="text-decoration: none; color: black;">
           <ion-icon name="refresh" id="refresh"></ion-icon>
         </a>
 
@@ -275,7 +328,7 @@
               </li>
             </ul>
           </div>
-          <div class="col-lg-10" style="margin-top: 40px;">
+          <div class="col-lg-10" style="margin-top: 40px;" id="messageSection">
             <div class="" id="hiddenMessage" style="border: solid 0.5px lightgrey; padding: 0 20px; border-radius: 6px;"><ion-icon name="arrow-round-back" id="backButton"></ion-icon><ion-icon name="trash" id="trash" onclick = "deleteMessage()"></ion-icon><ion-icon name="create" id="reply" onclick = "replyMessage()"></ion-icon><ion-icon name="more" id="more"></ion-icon><p class="lead" style="font-size: 17px;"><span id="senderEmail"></span><br><span id="senderName"></span><br><span id="senderPhone"></span></p><p class="lead" id="message" style="font-size: 17px;"></p></div>
 
             <ul class="list-group" id="shownMessage">
@@ -336,7 +389,7 @@
               messageHidden.style.background = "white";
               senderEmail.innerHTML = 'Email:  ' + allMessages[i].email;
               senderName.innerHTML = 'Name:  ' + allMessages[i].name;
-              senderPhone.innerHTML = 'Phone:  ' + allMessages[i].phone;
+              senderPhone.innerHTML = 'Phone:  ' + allMessages[i].phone + '<hr>';
               messageText.innerHTML = allMessages[i].message;
             }
             break;
@@ -482,6 +535,17 @@
         });
       })
 
+    </script>
+
+    <script>
+      //nav script
+      function openNav() {
+        document.getElementById("mySidenav").style.width = "300px";
+      }
+
+      function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+      }
     </script>
 </body>
 

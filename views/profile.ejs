@@ -15,8 +15,8 @@
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+    <!-- jQuery cdn -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
     <!-- google fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
@@ -150,7 +150,7 @@
 
             <div class="col-lg-8" style="margin-right: 5px;margin-left: 6px; margin-top: 50px; font-family: Calibri;">
                 <h1>Questions of the day.</h1>
-                <p class="lead" style="color: red;">Note: You get 2 marks for each question + You get a single chance to answer
+                <p class="lead" style="color: #0E7CC6;">Note: You get 2 marks for each question + You get a single chance to answer
                   a question. Once submitted, it is locked.
                 </p>
                 <div style="height: 500px;margin-top: 52px;margin-bottom: 25px; text-align: left;" id="questions_block">
@@ -160,9 +160,18 @@
                       <div class="question_section">
                         <div class = "row">
                           <div class = "col-md-4">
-                            <span id="subject">Subject: <%= questions[i].subject %></span>
+                            Subject: <span id="subject"><%= questions[i].subject %></span>
                           </div>
-                          <div class = "col-md-4"></div>
+                          <div class = "col-md-4">
+                            Status:
+                            <% if(questions[i].qstatus == 'Not Done'){ %>
+                              <span id="qStatus" style="color: #0E7CC6;">Not Done</span>
+                            <% } else if(questions[i].qstatus == 'Correct'){ %>
+                              <span id="qStatus" style="color: green;">Correct</span>
+                            <% } else { %>
+                              <span id="qStatus" style="color: red;">Wrong</span>
+                            <% } %>
+                          </div>
                           <div class = "col-md-4"></div>
                         </div>
                         <p class="lead"><strong>Q <%= i + 1 %>.
@@ -180,9 +189,18 @@
                       <div class="question_section">
                         <div class = "row">
                           <div class = "col-sm-4">
-                            <span id="subject">Subject: <%= questions[i].subject %></span>
+                            Subject: <span id="subject"><%= questions[i].subject %></span>
                           </div>
-                          <div class = "col-sm-4"></div>
+                          <div class = "col-sm-4">
+                            Status:
+                            <% if(questions[i].qstatus == 'Not Done'){ %>
+                              <span id="qStatus" style="color: #0E7CC6;">Not Done</span>
+                            <% } else if(questions[i].qstatus == 'Correct'){ %>
+                              <span id="qStatus" style="color: green;">Correct</span>
+                            <% } else { %>
+                              <span id="qStatus" style="color: red;">Wrong</span>
+                            <% } %>
+                          </div>
                           <div class = "col-sm-4"></div>
                         </div>
                         <p class="lead"><strong>Q. <%= i + 1 %>
@@ -247,16 +265,52 @@
       function checkAns(){
         event.preventDefault();
         event.target.myanswer.setAttribute("readonly", "");
+
+        var answerStatus = null;
+        var eventID = event.target.id;
+        var subject = event.target.parentElement.querySelector('#subject').innerHTML;
+
+        //alert(event.target.parentElement.querySelector('#qStatus').innerHTML);
+        var qStatus = event.target.parentElement.querySelector('#qStatus');
+
         for(var i = 0; i<questions.length; i++){
           if(event.target.id == questions[i]._id){
             if(event.target.myanswer.value == questions[i].answer){
-              alert('Correct')
+              //alert('Correct')
+              answerStatus = 'Correct';
+              break;
             }
             else{
-              alert('Not Correct')
+              //alert('Wrong')
+              answerStatus = 'Wrong';
+              break;
             }
           }
         }
+
+        if(answerStatus == 'Correct'){
+          qStatus.innerHTML = 'Correct';
+          qStatus.style.color = 'green';
+        }
+        else{
+          qStatus.innerHTML = 'Wrong';
+          qStatus.style.color = 'red';
+        }
+
+        //sending answer of question
+        $(document).ready(function(){
+
+          var ansObject = {
+            qId: eventID,
+            subject: subject,
+            answer: answerStatus
+          };
+
+          $.post("/submitAnswer", ansObject, function(){
+            //alert(answerStatus)
+          });
+
+        });
       }
 
     </script>

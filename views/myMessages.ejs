@@ -20,7 +20,9 @@
 
     <style media="screen">
       body{
-        background: pink;
+        background-image: url('mountains.jpg');
+        background-position: top left;
+        background-repeat: no-repeat;
       }
 
       h1{
@@ -33,7 +35,7 @@
 
       nav{
         border-bottom: solid 0.2px lightgrey;
-        background: white;
+        background: rgba(255, 255, 255, 0.9);
         box-shadow: 0 0 10px lightgrey;
       }
 
@@ -49,6 +51,11 @@
 
       #hiddenMessage{
         display: none;
+      }
+
+      #messageSection ul{
+        height: 273px;
+        overflow: auto;
       }
 
       #backButton, #trash, #more, #reply{
@@ -68,10 +75,11 @@
         border-radius: 20px;
         margin-bottom: -14px;
         padding: 8px;
+        background: white;
       }
 
       #refresh:hover, #settings:hover{
-        background: rgba(0, 0, 0, 0.1);
+        background: rgba(255, 255, 255, 0.5);
         transition: all 0.5s;
       }
 
@@ -80,7 +88,7 @@
       }
 
       #refresh{
-        margin-left: 40px;
+        margin-left: 50px;
       }
 
       #composeButton{
@@ -202,6 +210,7 @@
         padding: 25px;
         padding-left: 40px;
         background: rgba(255,255,255,0.7);
+        transition: all 0.3s;
       }
       #searchInput:focus{
         background: white;
@@ -334,13 +343,13 @@
               </li>
             </ul>
           </div>
-          <div class="col-md-10" style="margin-top: 40px;">
-            <div class="" id="hiddenMessage" style="border: solid 0.5px lightgrey; padding: 0 20px; border-radius: 6px;"><ion-icon name="arrow-round-back" id="backButton"></ion-icon><ion-icon name="trash" id="trash" onclick = "deleteMessage()"></ion-icon><ion-icon name="create" id="reply" onclick = "replyMessage()"></ion-icon><ion-icon name="more" id="more"></ion-icon><p class="lead" style="font-size: 17px;"><span id="senderEmail"></span><br><span id="senderSubject"></span><br></p><p class="lead" id="message" style="font-size: 17px;"></p></div>
+          <div class="col-md-10" style="margin-top: 40px;" id="messageSection">
+            <div class="" id="hiddenMessage" style="border: solid 0.5px lightgrey; padding: 0 20px; border-radius: 6px;"><ion-icon name="arrow-round-back" id="backButton"></ion-icon><ion-icon name="trash" id="trash" onclick = "deleteMessage()"></ion-icon><ion-icon name="create" id="reply" onclick = "replyMessage()"></ion-icon><ion-icon name="more" id="more"></ion-icon><p class="lead" style="font-size: 17px;"><span id="senderEmail"></span><br><span id="senderSubject"></span></p><p class="lead" id="message" style="font-size: 17px;"></p></div>
 
             <ul class="list-group" id="shownMessage">
               <% for(var i = allMessages.length - 1; i>=0; i--){ %>
                 <li class="list-group-item" onclick = "handleClick()" id=<%= allMessages[i]._id %>>
-                  <span><ion-icon name="star-outline" id="makestar">
+                  <span><ion-icon name="star-outline" id="makestar" onclick = "handleStarring()">
                   </ion-icon></span><%= allMessages[i].from %>
                 </li>
               <% } %>
@@ -351,7 +360,7 @@
 
     <div class="composeMessage" id="composeHidden">
       <header style="background: rgba(0, 0, 0, 0.75); padding: 7px 0; padding-left: 10px; color: white;" id="composeHeader">
-        <span style="font-family: Calibri; font-size: 17px;">New message</span>
+        <span style="font-family: 'Montserrat', sans-serif; font-size: 17px;">New message</span>
         <ion-icon name="close" id="closeButton"></ion-icon>
       </header>
 
@@ -386,6 +395,8 @@
       var inbox = document.getElementById('inbox');
       var backButton = document.getElementById('backButton');
 
+      var closeButton = document.getElementById('closeButton');
+
       function handleClick(){
         for(var i = 0; i<allMessages.length; i++){
           if(event.target.id == allMessages[i]._id){
@@ -396,7 +407,7 @@
               messageHidden.style.background = "white";
 
               senderEmail.innerHTML = 'Email:  ' + allMessages[i].from;
-              senderSubject.innerHTML = 'Subject:  ' + allMessages[i].subject;
+              senderSubject.innerHTML = 'Subject:  ' + allMessages[i].subject + '<hr>';
               messageText.innerHTML = allMessages[i].message;
             }
             break;
@@ -419,7 +430,6 @@
       var composeButton = document.getElementById('composeButton');
       var compose = document.getElementById('composeHidden');
       var composeHeader = document.getElementById('composeHeader');
-      var closeButton = document.getElementById('closeButton');
 
       var checksizeCounter = 0;
 
@@ -438,6 +448,7 @@
         }
       }
 
+      //closing the compose section
       closeButton.onclick = function(){
         compose.id = 'composeHidden';
         if(checksizeCounter%2 == 0){
@@ -448,13 +459,16 @@
         }
       }
 
+      //minimizing the compose section
       composeHeader.onclick = function(){
         if(checksizeCounter%2 == 0){
-          compose.style.height = "35px";
+          compose.style.height = "40px";
+          closeButton.style.visibility = "hidden";
           checksizeCounter++;
         }
         else{
           compose.style.height = "500px";
+          closeButton.style.visibility = "visible";
           checksizeCounter++;
         }
       }
@@ -519,6 +533,15 @@
       var refresh = document.getElementById('refresh');
       refresh.onclick = function(){
         location.reload();
+      }
+
+      //making starred message
+      function handleStarring(){
+        if(event.target.style.color != "red"){
+          event.target.style.color = "red";
+        }else{
+          event.target.style.color = "black";
+        }
       }
 
     </script>

@@ -43,6 +43,7 @@ router.post('/enter-questions', function(req, res){
   if(req.body.id == 'Simple Question'){ //simple_question
     var newQuestion = new Question({
       id: req.body.id,
+      qstatus: 'Not Done',
       subject: req.body.subject,
       class: req.body.class,
       question: req.body.question,
@@ -60,6 +61,7 @@ router.post('/enter-questions', function(req, res){
   else{
     var newQuestion = new Question({  //MCQ_question
       id: req.body.id,
+      qstatus: 'Not Done',
       subject: req.body.subject,
       class: req.body.class,
       question: req.body.question,
@@ -77,7 +79,7 @@ router.post('/enter-questions', function(req, res){
 });
 
 
-//getting questions
+//getting questions //used with react
 router.get('/getQuestions', function(req, res){
   Question.find({}).then(function(data){
     res.json({data: data});

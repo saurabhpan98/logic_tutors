@@ -8,6 +8,7 @@ var enter_questions = require('./routes/enter_question');
 var mark_attendance = require('./routes/mark_attendance');
 var contact_messages = require('./routes/contact-messages');
 var studentMessages = require('./routes/student-messages');
+var checkingAnswer = require('./routes/checkingAnswer');
 
 var app = express();
 
@@ -26,6 +27,7 @@ app.use('/', enter_questions);
 app.use('/', mark_attendance);
 app.use('/', contact_messages);
 app.use('/', studentMessages);
+app.use('/', checkingAnswer);
 
 
 app.listen(3000, function(){
